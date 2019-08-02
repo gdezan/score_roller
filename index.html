@@ -1,59 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Score Roller</title>
     <link rel="stylesheet" href="styles.css" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Blinker:400,700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
+    <link href="https://fonts.googleapis.com/css?family=Blinker:400,600&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="title-container">
+        <img src="logo.png" alt="logo" class="logo">
+        <h1 class="title">Ability Score Dice Roller</h1>
+    </div>
     <div class="container">
-      <div class="grid-container">
-        <div class="grid">
-          <div class="cell bold blu"></div>
-          <div class="cell bold">1</div>
-          <div class="cell bold">2</div>
-          <div class="cell bold">3</div>
-          <div class="cell bold">4</div>
-          <div class="cell bold">5</div>
-          <div class="cell bold">6</div>
-          <div class="cell bold bru">Total</div>
-          <div class="cell bold left-align">Roll</div>
-          <div class="cell point">0</div>
-          <div class="cell point">0</div>
-          <div class="cell point">0</div>
-          <div class="cell point">0</div>
-          <div class="cell point">0</div>
-          <div class="cell point">0</div>
-          <div class="cell point">0</div>
-          <div class="cell bold left-align blb">Bonus</div>
-          <div class="cell bonus">0</div>
-          <div class="cell bonus">0</div>
-          <div class="cell bonus">0</div>
-          <div class="cell bonus">0</div>
-          <div class="cell bonus">0</div>
-          <div class="cell bonus">0</div>
-          <div class="cell bonus brb">0</div>
+        <div class="grid-container">
+            <div class="grid">
+                <div class="cell top-row bold blu"></div>
+                <div class="cell top-row bold">1</div>
+                <div class="cell top-row bold">2</div>
+                <div class="cell top-row bold">3</div>
+                <div class="cell top-row bold">4</div>
+                <div class="cell top-row bold">5</div>
+                <div class="cell top-row bold">6</div>
+                <div class="cell top-row bold bru">Total</div>
+                <div class="cell left-row bold left-align">Roll</div>
+                <div class="cell point">0</div>
+                <div class="cell point">0</div>
+                <div class="cell point">0</div>
+                <div class="cell point">0</div>
+                <div class="cell point">0</div>
+                <div class="cell point">0</div>
+                <div class="cell point">0</div>
+                <div class="cell left-row bold left-align blb">Bonus</div>
+                <div class="cell bonus">0</div>
+                <div class="cell bonus">0</div>
+                <div class="cell bonus">0</div>
+                <div class="cell bonus">0</div>
+                <div class="cell bonus">0</div>
+                <div class="cell bonus">0</div>
+                <div class="cell bonus brb">0</div>
+            </div>
         </div>
-      </div>
-      <div class="roll-things">
-          <button class="roller">Roll</button>
-          <div class="limit-things">
-                  <input class="limit" type="checkbox"> Fix total to
-              <div class="slider">
-                  <input class="limit-number" value="73" min="45" max="100" type="range" />
-                  <div class="slider-number">73</div>
+        <div class="roll-things">
+            <button class="roller">Roll</button>
+            <div class="limit-things">
+                <input class="limit" type="checkbox">
+            </input> <span>
+
+                Fix total to
+            </span>
+            <div class="slider-number">73</div>
+                <div class="slider">
+                    <input class="limit-number" value="73" min="45" max="100" type="range" />
                 </div>
-            </input>
+            </div>
         </div>
-      </div>
     </div>
 
     <script src="script.js"></script>
-  </body>
+</body>
+
 </html>

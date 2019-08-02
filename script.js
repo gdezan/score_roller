@@ -5,6 +5,25 @@ const limitCheck = document.querySelector(".limit");
 const limitNumber = document.querySelector(".limit-number");
 const sliderNumber = document.querySelector(".slider-number");
 
+const pointBuyDict = {
+  3: -9,
+  4: -6,
+  5: -4,
+  6: -2,
+  7: -1,
+  8: 0,
+  9: 1,
+  10: 2,
+  11: 3,
+  12: 4,
+  13: 5,
+  14: 7,
+  15: 9,
+  16: 12,
+  17: 15,
+  18: 19,
+};
+
 function d6() {
   return Math.floor(Math.random() * 6 + 1);
 }
@@ -44,12 +63,20 @@ function fillCells() {
     pointCells[i].innerText = rolls[i];
     bonusCells[i].innerText = bonus[i];
   }
+  console.log(getPointBuy(rolls));
 }
 
 function getLimited() {
   let rolls = makeRoll();
   while (rolls[6] !== parseInt(limitNumber.value)) rolls = makeRoll();
   return rolls;
+}
+
+function getPointBuy(rolls) {
+  const pointBuy = rolls.map(item => pointBuyDict[item]);
+  pointBuy.splice(-1, 1);
+  pointBuy.push(pointBuy.reduce((acc, item) => acc + item, 0));
+  return pointBuy;
 }
 
 rollButton.addEventListener("click", fillCells);
