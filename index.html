@@ -44,18 +44,45 @@
                 <div class="cell bonus brb">0</div>
             </div>
         </div>
+        <div class="pbe-grid-container pbe-before">
+            <div class="pbe-grid">
+                <div class="cell pbe-left bold pbe-cell blb">PBE</div>
+                <div class="cell pbe-cell pbe-point">0</div>
+                <div class="cell pbe-cell pbe-point">0</div>
+                <div class="cell pbe-cell pbe-point">0</div>
+                <div class="cell pbe-cell pbe-point">0</div>
+                <div class="cell pbe-cell pbe-point">0</div>
+                <div class="cell pbe-cell pbe-point">0</div>
+                <div class="cell pbe-cell pbe-point brb">0</div>
+            </div>
+        </div>
         <div class="roll-things">
             <button class="roller">Roll</button>
-            <div class="limit-things">
-                <input class="limit" type="checkbox">
-            </input> <span>
-
-                Fix total to
-            </span>
-            <div class="slider-number">73</div>
-                <div class="slider">
-                    <input class="limit-number" value="73" min="45" max="100" type="range" />
+            <div class="options">
+                <div class="pbe-line">
+                    <input class="pbe-check" type="checkbox" />
+                    <span>Calculate PBE</span>
                 </div>
+                <form class="radio-buttons">
+                    <div class="limit-things">
+                        <input class="limit" name="limit" id="fix-check" type="radio">
+                        </input>
+                        <span> Fix total to </span>
+                        <div class="slider-number" id="fix-number">73</div>
+                    </div>
+                    <div class="slider">
+                        <input class="limit-number" id="fix-slider" value="73" min="45" max="100" type="range" />
+                    </div>
+                    <div class="limit-things">
+                        <input class="limit" name="limit" id="greater-check" type="radio">
+                        </input>
+                        <span> Total greater than </span>
+                        <div class="slider-number" id="greater-number">73</div>
+                    </div>
+                    <div class="slider">
+                        <input class="limit-number" id="greater-slider" value="73" min="45" max="100" type="range" />
+                    </div>
+                </form>
             </div>
         </div>
     </div>

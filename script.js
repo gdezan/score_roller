@@ -1,9 +1,16 @@
 const pointCells = document.querySelectorAll(".point");
 const bonusCells = document.querySelectorAll(".bonus");
+const pbeCells = document.querySelectorAll(".pbe-point");
 const rollButton = document.querySelector(".roller");
-const limitCheck = document.querySelector(".limit");
-const limitNumber = document.querySelector(".limit-number");
-const sliderNumber = document.querySelector(".slider-number");
+const limitCheck = document.querySelector("#fix-check");
+const fixSlider = document.querySelector("#fix-slider");
+const sliderNumber = document.querySelector("#fix-number");
+const greaterCheck = document.querySelector("#greater-check");
+const greaterSlider = document.querySelector("#greater-slider");
+const greaterNumber = document.querySelector("#greater-number");
+const pbeGrid = document.querySelector(".pbe-grid-container");
+const gridContainer = document.querySelector(".grid-container");
+const pbeCheck = document.querySelector(".pbe-check");
 
 const pointBuyDict = {
   3: -9,
@@ -56,19 +63,35 @@ function getBonus(rolls) {
 }
 
 function fillCells() {
-  const num = parseInt(limitNumber.value);
-  const rolls = limitCheck.checked && num <= 108 && num >= 18 ? getLimited() : makeRoll();
+  const num = parseInt(fixSlider.value);
+  let rolls = [];
+
+  if (limitCheck.checked) {
+    rolls = getLimited();
+  } else if (greaterCheck.checked) {
+    rolls = getGreater();
+  } else {
+    rolls = makeRoll();
+  }
+
   const bonus = getBonus(rolls);
+  const pbe = getPointBuy(rolls);
   for (let i = 0; i < pointCells.length; i++) {
     pointCells[i].innerText = rolls[i];
     bonusCells[i].innerText = bonus[i];
+    pbeCells[i].innerText = pbe[i];
   }
-  console.log(getPointBuy(rolls));
 }
 
 function getLimited() {
   let rolls = makeRoll();
-  while (rolls[6] !== parseInt(limitNumber.value)) rolls = makeRoll();
+  while (rolls[6] !== parseInt(fixSlider.value)) rolls = makeRoll();
+  return rolls;
+}
+
+function getGreater() {
+  let rolls = makeRoll();
+  while (rolls[6] <= parseInt(greaterSlider.value)) rolls = makeRoll();
   return rolls;
 }
 
@@ -79,7 +102,21 @@ function getPointBuy(rolls) {
   return pointBuy;
 }
 
+function togglePbe() {
+  if (pbeCheck.checked) {
+    pbeGrid.classList.remove("pbe-before");
+    gridContainer.classList.add("grid-after");
+  } else {
+    pbeGrid.classList.add("pbe-before");
+    gridContainer.classList.remove("grid-after");
+  }
+}
+
+pbeCheck.addEventListener("click", togglePbe);
 rollButton.addEventListener("click", fillCells);
-limitNumber.addEventListener("input", () => {
-  sliderNumber.innerText = limitNumber.value;
+fixSlider.addEventListener("input", () => {
+  sliderNumber.innerText = fixSlider.value;
+});
+greaterSlider.addEventListener("input", () => {
+  greaterNumber.innerText = greaterSlider.value;
 });
