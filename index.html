@@ -8,6 +8,8 @@
     <title>Score Roller</title>
     <link rel="stylesheet" href="styles.css" />
     <link href="https://fonts.googleapis.com/css?family=Blinker:400,600&display=swap" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 
 <body>
@@ -16,6 +18,18 @@
         <h1 class="title">Ability Score Dice Roller</h1>
     </div>
     <div class="container">
+        <div class="roll-types-container">
+            <div class="above-selected-roll"></div>
+            <div class="selected-roll">
+                <span class="selected-roll-text" id="4d6dl">4d6 (Drop Lowest)</span>
+                <i class="fa fa-angle-down roll-angle-down"></i>
+            </div>
+            <div class="roll-types hidden-roll-types">
+                <div class="roll-type" id="4d6dl">4d6 (Drop Lowest)</div>
+                <div class="roll-type" id="3d6">3d6</div>
+                <div class="roll-type" id="2d6p6">2d6 + 6</div>
+            </div>
+        </div>
         <div class="grid-container">
             <div class="grid">
                 <div class="cell top-row bold blu"></div>
@@ -77,7 +91,7 @@
                         <div class="slider-number" id="fix-number">73</div>
                     </div>
                     <div class="slider">
-                        <input class="limit-number" id="fix-slider" value="73" min="45" max="100" type="range" />
+                        <input class="limit-number" id="fix-slider" value="73" min="60" max="100" type="range" />
                     </div>
                     <div class="limit-things">
                         <input class="limit" name="limit" id="greater-check" type="radio">
@@ -86,7 +100,7 @@
                         <div class="slider-number" id="greater-number">73</div>
                     </div>
                     <div class="slider">
-                        <input class="limit-number" id="greater-slider" value="73" min="45" max="100" type="range" />
+                        <input class="limit-number" id="greater-slider" value="73" min="60" max="100" type="range" />
                     </div>
                 </form>
             </div>

@@ -1,6 +1,7 @@
 const pointCells = document.querySelectorAll(".point");
 const bonusCells = document.querySelectorAll(".bonus");
 const pbeCells = document.querySelectorAll(".pbe-point");
+const rollTypes = document.querySelectorAll(".roll-type");
 const rollButton = document.querySelector(".roller");
 const limitCheck = document.querySelector("#fix-check");
 const fixSlider = document.querySelector("#fix-slider");
@@ -11,6 +12,10 @@ const greaterNumber = document.querySelector("#greater-number");
 const pbeGrid = document.querySelector(".pbe-grid-container");
 const gridContainer = document.querySelector(".grid-container");
 const pbeCheck = document.querySelector(".pbe-check");
+const selectedRoll = document.querySelector(".selected-roll");
+const selectedRollText = document.querySelector(".selected-roll-text");
+const rollTypesContainer = document.querySelector(".roll-types");
+const selectedRollArrow = document.querySelector(".roll-angle-down");
 
 const pointBuyDict = {
   3: -9,
@@ -35,7 +40,7 @@ function d6() {
   return Math.floor(Math.random() * 6 + 1);
 }
 
-function makeRoll() {
+function fourDSixDropLowest() {
   let rolls = [];
   let bigTotal = 0;
   for (let i = 0; i < 6; i++) {
@@ -53,6 +58,44 @@ function makeRoll() {
   }
   rolls.push(bigTotal);
   return rolls;
+}
+
+function threeDSix() {
+  let rolls = [];
+  let bigTotal = 0;
+  for (let i = 0; i < 6; i++) {
+    let total = 0;
+    for (let i = 0; i < 3; i++) {
+      total += d6();
+    }
+    rolls.push(total);
+    bigTotal += total;
+  }
+  rolls.push(bigTotal);
+  return rolls;
+}
+
+function twoDSixPlusSix() {
+  let rolls = [];
+  let bigTotal = 0;
+  for (let i = 0; i < 6; i++) {
+    const total = d6() + d6() + 6;
+    rolls.push(total);
+    bigTotal += total;
+  }
+  rolls.push(bigTotal);
+  return rolls;
+}
+
+function makeRoll() {
+  switch (selectedRollText.id) {
+    case "4d6dl":
+      return fourDSixDropLowest();
+    case "3d6":
+      return threeDSix();
+    case "2d6p6":
+      return twoDSixPlusSix();
+  }
 }
 
 function getBonus(rolls) {
@@ -112,6 +155,27 @@ function togglePbe() {
   }
 }
 
+let rollTypesOpened = false;
+function toggleRollTypes() {
+  if (rollTypesOpened) {
+    rollTypesContainer.classList.add("hidden-roll-types");
+    selectedRollArrow.classList.remove("rotated-angle");
+  } else {
+    selectedRollArrow.classList.add("rotated-angle");
+    rollTypesContainer.classList.remove("hidden-roll-types");
+  }
+  rollTypesOpened = !rollTypesOpened;
+}
+
+function selectRollType(e) {
+  const selectedRoll = e.toElement.innerText;
+  selectedRollText.innerText = selectedRoll;
+  selectedRollText.id = e.toElement.id;
+  toggleRollTypes();
+}
+
+rollTypes.forEach(e => e.addEventListener("click", e => selectRollType(e)));
+selectedRoll.addEventListener("click", toggleRollTypes);
 pbeCheck.addEventListener("click", togglePbe);
 rollButton.addEventListener("click", fillCells);
 fixSlider.addEventListener("input", () => {
