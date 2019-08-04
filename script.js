@@ -16,6 +16,7 @@ const selectedRoll = document.querySelector(".selected-roll");
 const selectedRollText = document.querySelector(".selected-roll-text");
 const rollTypesContainer = document.querySelector(".roll-types");
 const selectedRollArrow = document.querySelector(".roll-angle-down");
+const schemeToggle = document.querySelector(".scheme-toggle");
 
 const pointBuyDict = {
   3: -9,
@@ -35,6 +36,32 @@ const pointBuyDict = {
   17: 15,
   18: 19,
 };
+
+const carbonColorScheme = {
+  "--color-accent": "#D65A31",
+  "--color-primary": "#393e46",
+  "--color-secondary": "#222831",
+  "--color-border": "#272a30",
+  "--text-primary": "white",
+  "--text-contrast": "black",
+};
+
+const greenColorScheme = {
+  "--color-accent": "#619457",
+  "--color-primary": "#e5e5e5",
+  "--color-secondary": "#9db697",
+  "--color-border": "#44663e",
+  "--text-primary": "black",
+  "--text-contrast": "white",
+};
+
+function changeColorScheme() {
+  const root = document.documentElement;
+  const scheme = !schemeToggle.checked ? greenColorScheme : carbonColorScheme;
+  Object.keys(scheme).forEach(key => {
+    root.style.setProperty(key, scheme[key]);
+  });
+}
 
 function d6() {
   return Math.floor(Math.random() * 6 + 1);
@@ -174,6 +201,7 @@ function selectRollType(e) {
   toggleRollTypes();
 }
 
+schemeToggle.addEventListener("click", changeColorScheme);
 rollTypes.forEach(e => e.addEventListener("click", e => selectRollType(e)));
 selectedRoll.addEventListener("click", toggleRollTypes);
 pbeCheck.addEventListener("click", togglePbe);
