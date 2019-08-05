@@ -39,7 +39,7 @@ const pointBuyDict = {
 
 const carbonColorScheme = {
   "--color-accent": "#D65A31",
-  "--color-primary": "#393e46",
+  "--color-primary": "#474d57",
   "--color-secondary": "#222831",
   "--color-border": "#272a30",
   "--text-primary": "white",
