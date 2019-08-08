@@ -24,6 +24,7 @@ function App() {
     rollType: "4d6dl",
     rolls: [0, 0, 0, 0, 0, 0, 0],
     bonus: [0, 0, 0, 0, 0, 0, 0],
+    isPbeOn: false,
   };
 
   const reducer = (state, action) => {
@@ -34,6 +35,9 @@ function App() {
         return { ...state, rolls, bonus };
       case "setRollType":
         return { ...state, rollType: action.rollType };
+      case "togglePbe":
+        console.log("togglepbe");
+        return { ...state, isPbeOn: !state.isPbeOn };
       default:
         return state;
     }

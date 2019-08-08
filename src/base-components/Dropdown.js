@@ -8,41 +8,35 @@ const Dropdown = React.memo(props => {
   const [isSelectorHidden, toggleSelector] = useState(true);
   return (
     <>
-      <ListHider />
       <SelectedType onClick={() => toggleSelector(!isSelectorHidden)} isHidden={isSelectorHidden}>
         {props.value && props.value.description}
         <IconWrapper isHidden={isSelectorHidden}>
           <FontAwesomeIcon icon={faAngleDown} />
         </IconWrapper>
       </SelectedType>
-      <TypesWrapper isHidden={isSelectorHidden}>
-        {props.values.map(value => (
-          <Type
-            key={generate()}
-            onClick={() => {
-              props.onSelect(value.id);
-              toggleSelector(!isSelectorHidden);
-            }}
-          >
-            {value.description}
-          </Type>
-        ))}
-      </TypesWrapper>
+      <TypesContainer>
+        <TypesWrapper isHidden={isSelectorHidden}>
+          {props.values.map(value => (
+            <Type
+              isHidden={isSelectorHidden}
+              key={generate()}
+              onClick={() => {
+                if (!isSelectorHidden) {
+                  props.onSelect(value.id);
+                  toggleSelector(!isSelectorHidden);
+                }
+              }}
+            >
+              {value.description}
+            </Type>
+          ))}
+        </TypesWrapper>
+      </TypesContainer>
     </>
   );
 });
 
 export default Dropdown;
-
-const ListHider = styled.div`
-  width: 200px;
-  height: 40px;
-  background-color: ${props => props.backgroundColor || props.theme.colors.primary};
-  position: absolute;
-  z-index: 15;
-  margin-top: -40px;
-  margin-left: -10px;
-`;
 
 const SelectedType = styled.div`
   font-size: 15px;
@@ -74,23 +68,22 @@ const SelectedType = styled.div`
 
 const TypesWrapper = styled.div`
   text-align: left;
-  position: absolute;
-  z-index: 12;
   background-color: white;
   width: inherit;
   width: 200px;
-  margin-top: 5px;
   overflow: hidden;
-  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
   user-select: none;
-  transition: opacity 0.2s, transform 0.2s;
+  transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
   opacity: 1;
+  margin-top: 50px;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
 
   ${props =>
     props.isHidden &&
     css`
-      opacity: 0;
-      transform: translateY(-80px);
+      opacity: 1;
+      box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.75);
+      transform: translateY(calc(-100% - 60px));
     `}
 `;
 
@@ -102,8 +95,8 @@ const Type = styled.div`
 
   &:hover {
     background-color: ${props => props.theme.colors.accent};
-    cursor: pointer;
     color: white;
+    cursor: ${props => (props.isHidden ? "default" : "pointer")};
   }
 
   @media (max-width: 650px) {
@@ -119,4 +112,12 @@ const IconWrapper = styled.div`
   ${SelectedType}:hover & {
     color: ${props => props.theme.colors.accent};
   }
+`;
+
+const TypesContainer = styled.div`
+  position: absolute;
+  z-index: 12;
+  height: 200px;
+  padding: 0 10px;
+  overflow: hidden;
 `;

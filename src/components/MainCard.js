@@ -6,6 +6,7 @@ import { useStateValue } from "../state";
 
 import RollTypeSelector from "./RollTypeSelector";
 import StatsGrid from "./StatsGrid";
+import RollOptions from "./RollOptions";
 
 import Button from "../base-components/Button";
 
@@ -13,19 +14,16 @@ const MainCard = React.memo(props => {
   const [state, dispatch] = useStateValue();
   return (
     <Container>
-      <RollSelectorWrapper>
-        <RollTypeSelector
-          selectedType={state.rollType}
-          changeType={rollType => dispatch({ type: "setRollType", rollType })}
-        />
-      </RollSelectorWrapper>
+      <RollTypeSelector
+        selectedType={state.rollType}
+        changeType={rollType => dispatch({ type: "setRollType", rollType })}
+      />
       <StatsGrid />
-      <ButtonWrapper>
-        <Button onClick={() => dispatch({ type: "setRolls" })}>
-          <FontAwesomeIcon icon={faDice} />
-          <RollText>ROLL</RollText>
-        </Button>
-      </ButtonWrapper>
+      <Button onClick={() => dispatch({ type: "setRolls" })}>
+        <FontAwesomeIcon icon={faDice} />
+        <RollText>ROLL</RollText>
+      </Button>
+      <RollOptions isPbeOn={state.isPbeOn} togglePbe={() => dispatch({ type: "togglePbe" })} />
     </Container>
   );
 });
@@ -44,14 +42,6 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const ButtonWrapper = styled.div`
-  margin-top: 40px;
-`;
-
 const RollText = styled.span`
   margin-left: 7px;
-`;
-
-const RollSelectorWrapper = styled.div`
-  margin-bottom: 40px;
 `;

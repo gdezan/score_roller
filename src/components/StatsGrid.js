@@ -26,10 +26,10 @@ function renderGridCells(rolls, bonus) {
   );
 }
 
-const StatsGrid = props => {
+const StatsGrid = React.memo(props => {
   const [state] = useStateValue();
   return <Grid>{renderGridCells(state.rolls, state.bonus)}</Grid>;
-};
+});
 
 export default StatsGrid;
 
@@ -39,6 +39,7 @@ const Grid = styled.div`
   grid-template-rows: 1fr 1fr 1fr;
   border: 1px solid ${props => props.theme.colors.border};
   width: 80%;
+  margin: 60px 0;
 
   @media (max-width: 750px) {
     width: 100%;
