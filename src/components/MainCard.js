@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDice } from "@fortawesome/free-solid-svg-icons";
-import { useStateValue } from "../state";
 
 import RollTypeSelector from "./RollTypeSelector";
 import StatsGrid from "./StatsGrid";
@@ -11,7 +10,7 @@ import RollOptions from "./RollOptions";
 import Button from "../base-components/Button";
 
 const MainCard = React.memo(props => {
-  const [state, dispatch] = useStateValue();
+  const [state, dispatch] = props.useStateValue();
   return (
     <Container>
       <RollTypeSelector
@@ -40,6 +39,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: background-color 0.3s;
 `;
 
 const RollText = styled.span`

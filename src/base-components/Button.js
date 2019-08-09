@@ -1,27 +1,12 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
+import { ripple } from "./Keyframes";
 
 const Button = props => {
   return <ButtonWrapper onClick={props.onClick}>{props.children}</ButtonWrapper>;
 };
 
 export default Button;
-
-const ripple = keyframes`
-0% {
-    transform: scale(0, 0);
-    opacity: 1;
-  }
-  20% {
-    transform: scale(25, 25);
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(40, 40);
-  }
-}
-`;
 
 const ButtonWrapper = styled.button`
   background-color: ${props => props.theme.colors.accent};
@@ -34,6 +19,7 @@ const ButtonWrapper = styled.button`
   border: 2px solid rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
+  transition: background-color 0.3s, color 0.3s;
 
   &:hover {
     filter: brightness(1.15);

@@ -44,7 +44,8 @@ const SelectedType = styled.div`
   padding: 10px;
   position: relative;
   z-index: 20;
-  background-color: white;
+  background-color: ${props => props.theme.colors.cell};
+  color: ${props => props.theme.text.cell};
   width: 180px;
   display: flex;
   justify-content: space-between;
@@ -68,7 +69,7 @@ const SelectedType = styled.div`
 
 const TypesWrapper = styled.div`
   text-align: left;
-  background-color: white;
+  background-color: ${props => props.theme.colors.cell};
   width: inherit;
   width: 200px;
   overflow: hidden;
@@ -77,6 +78,7 @@ const TypesWrapper = styled.div`
   opacity: 1;
   margin-top: 50px;
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
+  color: ${props => props.theme.text.cell};
 
   ${props =>
     props.isHidden &&

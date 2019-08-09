@@ -1,29 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { StateProvider } from "./state";
 
 import MainPage from "./pages/MainPage";
 
 import LightTheme from "./themes/light";
-import { getRolls, getBonus } from "./functions/StatsRolls";
+import DarkTheme from "./themes/dark";
+import { getRolls, getBonus, getPointBuy } from "./functions/StatsRolls";
 
-const theme = LightTheme;
 const GlobalStyle = createGlobalStyle`
-  body {
-    background-color: ${theme.colors.background};
-    text-align: center;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    font-family: 'Montserrat', sans-serif;
-  }
-`;
+    body {
+      background-color: ${props => props.theme.colors.background};
+      text-align: center;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      font-family: 'Montserrat', sans-serif;
+      transition: background-color 0.4s, color 0.4s;
+    }
+  `;
 
 function App() {
+  const [isDark, toggleTheme] = useState(false);
+  const theme = isDark ? DarkTheme : LightTheme;
+
   const initialState = {
     rollType: "4d6dl",
     rolls: [0, 0, 0, 0, 0, 0, 0],
     bonus: [0, 0, 0, 0, 0, 0, 0],
+    pbe: [0, 0, 0, 0, 0, 0, 0],
     isPbeOn: false,
   };
 
@@ -32,11 +37,11 @@ function App() {
       case "setRolls":
         const rolls = getRolls(state.rollType);
         const bonus = getBonus(rolls);
-        return { ...state, rolls, bonus };
+        const pbe = getPointBuy(rolls);
+        return { ...state, rolls, bonus, pbe };
       case "setRollType":
         return { ...state, rollType: action.rollType };
       case "togglePbe":
-        console.log("togglepbe");
         return { ...state, isPbeOn: !state.isPbeOn };
       default:
         return state;
@@ -46,8 +51,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <StateProvider initialState={initialState} reducer={reducer}>
-        <MainPage />
-        <GlobalStyle />
+        <MainPage toggleTheme={() => toggleTheme(!isDark)} isDark={isDark} />
+        <GlobalStyle theme={theme} />
       </StateProvider>
     </ThemeProvider>
   );

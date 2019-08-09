@@ -8,21 +8,23 @@ const RollOptions = React.memo(props => {
     <>
       <Title>Roll Options</Title>
       <PbeWrapper>
-        <Text
-          onClick={() => {
-            console.log("onchange");
-            props.togglePbe();
-          }}
-        >
-          Calculate PBE (Point Buy Equivalent)
-        </Text>
-        <CheckBox
-          checked={props.isPbeOn}
-          onChange={() => {
-            console.log("onchange");
-            props.togglePbe();
-          }}
-        />
+        <Label>
+          <Text
+            onClick={() => {
+              console.log("onchange");
+              props.togglePbe();
+            }}
+          >
+            Calculate PBE (Point Buy Equivalent)
+          </Text>
+          <CheckBox
+            checked={props.isPbeOn}
+            onChange={() => {
+              console.log("onchange");
+              props.togglePbe();
+            }}
+          />
+        </Label>
       </PbeWrapper>
     </>
   );
@@ -35,6 +37,10 @@ const Title = styled.p`
   font-size: 20px;
 `;
 
-const Text = styled.span``;
+const Text = styled.span`
+  margin: 10px;
+`;
 
 const PbeWrapper = styled.div``;
+
+const Label = styled.label``;
