@@ -1,10 +1,10 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const Checkbox = ({ className, checked, ...props }) => (
+const CheckInput = ({ radio, className, checked, ...props }) => (
   <CheckboxContainer className={className}>
-    <HiddenCheckbox checked={checked} {...props} />
-    <StyledCheckbox checked={checked}>
+    <HiddenCheckbox checked={checked} radio={radio} {...props} />
+    <StyledCheckbox checked={checked} radio={radio}>
       <Icon viewBox="0 0 24 24">
         <polyline points="20 6 9 17 4 12" />
       </Icon>
@@ -12,11 +12,13 @@ const Checkbox = ({ className, checked, ...props }) => (
   </CheckboxContainer>
 );
 
-export default Checkbox;
+export default CheckInput;
 
 // Hide checkbox visually but remain accessible to screen readers.
 // Source: https://polished.js.org/docs/#hidevisually
-const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
+const HiddenCheckbox = styled.input.attrs(props => ({
+  type: props.radio ? "radio" : "checkbox",
+}))`
   border: 0;
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
@@ -43,6 +45,11 @@ const StyledCheckbox = styled.div`
     props.checked ? props.theme.colors.accent : props.theme.colors.secondary};
   border-radius: 3px;
   transition: all 150ms;
+  ${props =>
+    props.radio &&
+    css`
+      border-radius: 50%;
+    `}
 
   ${HiddenCheckbox}:focus + & {
     box-shadow: 0 0 0 3px pink;
@@ -56,4 +63,5 @@ const StyledCheckbox = styled.div`
 const CheckboxContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
+  cursor: pointer;
 `;

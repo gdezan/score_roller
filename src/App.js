@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { StateProvider } from "./state";
+import { StateProvider } from "state";
 
-import MainPage from "./pages/MainPage";
+import MainPage from "pages/MainPage";
 
-import LightTheme from "./themes/light";
-import DarkTheme from "./themes/dark";
-import { getRolls, getBonus, getPointBuy } from "./functions/StatsRolls";
+import LightTheme from "themes/light";
+import DarkTheme from "themes/dark";
+import { getRolls, getBonus, getPointBuy } from "functions/StatsRolls";
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -30,6 +30,9 @@ function App() {
     bonus: [0, 0, 0, 0, 0, 0, 0],
     pbe: [0, 0, 0, 0, 0, 0, 0],
     isPbeOn: false,
+    minTotalValue: 70,
+    maxTotalValue: 70,
+    fixedTotalValue: 70,
   };
 
   const reducer = (state, action) => {
@@ -43,6 +46,10 @@ function App() {
         return { ...state, rollType: action.rollType };
       case "togglePbe":
         return { ...state, isPbeOn: !state.isPbeOn };
+      case "setTotalOption":
+        return { ...state, totalOption: action.totalOption };
+      case "setTotalOptionValue":
+        return { ...state, [action.totalOption]: action.totalOptionValue };
       default:
         return state;
     }

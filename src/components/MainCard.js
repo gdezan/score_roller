@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDice } from "@fortawesome/free-solid-svg-icons";
 
-import RollTypeSelector from "./RollTypeSelector";
-import StatsGrid from "./StatsGrid";
-import RollOptions from "./RollOptions";
+import RollTypeSelector from "components/RollTypeSelector";
+import StatsGrid from "components/StatsGrid";
+import RollOptions from "components/RollOptions";
 
-import Button from "../base-components/Button";
+import Button from "base-components/Button";
 
 const MainCard = React.memo(props => {
   const [state, dispatch] = props.useStateValue();
@@ -22,7 +22,22 @@ const MainCard = React.memo(props => {
         <FontAwesomeIcon icon={faDice} />
         <RollText>ROLL</RollText>
       </Button>
-      <RollOptions isPbeOn={state.isPbeOn} togglePbe={() => dispatch({ type: "togglePbe" })} />
+      <RollOptions
+        isPbeOn={state.isPbeOn}
+        togglePbe={() => dispatch({ type: "togglePbe" })}
+        setTotalOption={totalOption => dispatch({ type: "setTotalOption", totalOption })}
+        minTotalValue={state.minTotalValue}
+        maxTotalValue={state.maxTotalValue}
+        fixedTotalValue={state.fixedTotalValue}
+        rollType={state.rollType}
+        setOptionValue={(option, optionValue) =>
+          dispatch({
+            type: "setTotalOptionValue",
+            totalOption: option,
+            totalOptionValue: optionValue,
+          })
+        }
+      />
     </Container>
   );
 });
