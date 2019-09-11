@@ -47,14 +47,16 @@ export default MainCard;
 const Container = styled.div`
   color: ${props => props.theme.text.primary};
   background-color: ${props => props.theme.colors.primary};
-  padding: 40px;
+  padding: 5%;
   width: 60vw;
-  margin-top: 80px;
   box-shadow: -2px 10px 19px -4px rgba(0, 0, 0, 0.75);
   display: flex;
   flex-direction: column;
   align-items: center;
   transition: background-color 0.3s;
+  @media (max-width: 650px) {
+    width: 80vw;
+  }
 `;
 
 const RollText = styled.span`

@@ -29,7 +29,7 @@ const ThemeToggle = React.memo(props => {
 export default ThemeToggle;
 
 const ButtonWrapper = styled.div`
-  margin-top: 30px;
+  margin: 30px 0;
   width: 60px;
   height: 30px;
   background-color: ${props => props.theme.colors.accent};

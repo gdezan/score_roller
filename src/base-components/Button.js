@@ -49,7 +49,7 @@ const ButtonWrapper = styled.button`
   }
 
   @media (max-width: 650px) {
-    font-size: 13px;
+    font-size: 15px;
     padding: 10px 5px;
   }
 `;

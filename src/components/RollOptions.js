@@ -22,9 +22,8 @@ const RollOptions = React.memo(props => {
   const [maxValue, setMaxValue] = useState(props.maxTotalValue);
   const [fixedValue, setFixedValue] = useState(props.fixedTotalValue);
   const [option, setOption] = useState("");
-  console.log(option);
   return (
-    <>
+    <Wrapper>
       <Title>Roll Options</Title>
       <PbeWrapper>
         <Label>
@@ -48,7 +47,7 @@ const RollOptions = React.memo(props => {
         />
         <SliderText>{"Total must be greater than"}</SliderText>
         <SliderValue>{minValue}</SliderValue>
-        <Slider
+        <CustomSlider
           value={minValue}
           onChange={e => setMinValue(e.target.value)}
           onMouseUp={e => props.setOptionValue("minTotalValue", e.target.value)}
@@ -59,7 +58,7 @@ const RollOptions = React.memo(props => {
         <CheckInput radio checked={option === "max"} onChange={() => setOption("max")} />
         <SliderText>{"Total must be less than"}</SliderText>
         <SliderValue>{maxValue}</SliderValue>
-        <Slider
+        <CustomSlider
           value={maxValue}
           onChange={e => setMaxValue(e.target.value)}
           onMouseUp={e => props.setOptionValue("maxTotalValue", e.target.value)}
@@ -70,7 +69,7 @@ const RollOptions = React.memo(props => {
         <CheckInput radio checked={option === "fixed"} onChange={() => setOption("fixed")} />
         <SliderText>{"Total must be exactly"}</SliderText>
         <SliderValue>{fixedValue}</SliderValue>
-        <Slider
+        <CustomSlider
           value={fixedValue}
           onChange={e => setFixedValue(e.target.value)}
           onMouseUp={e => props.setOptionValue("fixedTotalValue", e.target.value)}
@@ -78,15 +77,31 @@ const RollOptions = React.memo(props => {
           max={getMinMax(props.rollType).max}
         />
       </SlidersWrapper>
-    </>
+    </Wrapper>
   );
 });
 
 export default RollOptions;
 
+const CustomSlider = styled(Slider)`
+  @media (max-width: 650px) {
+    margin: 20px 0 40px;
+  }
+`;
+
+const Wrapper = styled.div`
+  @media (max-width: 650px) {
+    font-size: 13px;
+  }
+`;
+
 const Title = styled.p`
   margin: 60px 0 50px;
   font-size: 20px;
+
+  @media (max-width: 650px) {
+    margin: 40px 0 30px;
+  }
 `;
 
 const Text = styled.span`
@@ -96,6 +111,9 @@ const Text = styled.span`
 const SliderText = styled.span`
   justify-self: right;
   white-space: nowrap;
+  @media (max-width: 650px) {
+    margin: 0 10px 0 15px;
+  }
 `;
 
 const SliderValue = styled.div`
@@ -116,4 +134,13 @@ const SlidersWrapper = styled.div`
   grid-row-gap: 30px;
   width: 100%;
   justify-content: center;
+  @media (max-width: 650px) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: 0 auto;
+  }
 `;

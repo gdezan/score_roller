@@ -58,10 +58,19 @@ const StyledCheckbox = styled.div`
   ${Icon} {
     visibility: ${props => (props.checked ? "visible" : "hidden")};
   }
+
+  @media (max-width: 650px) {
+    width: 12px;
+    height: 12px;
+  }
 `;
 
 const CheckboxContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
   cursor: pointer;
+  @media (max-width: 650px) {
+    width: 12px;
+    height: 12px;
+  }
 `;

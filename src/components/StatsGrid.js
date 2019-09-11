@@ -5,6 +5,11 @@ import { useStateValue } from "../state";
 
 import { GridAnim, PbeRowAnim } from "../base-components/Keyframes";
 
+function addSign(n) {
+  const num = parseInt(n);
+  return num > 0 ? `+${num}` : num;
+}
+
 function renderTopRow() {
   let cells = [<TopRowCell key={generate()} />];
   for (let i = 1; i <= 6; i++) cells.push(<TopRowCell key={generate()}>{i}</TopRowCell>);
@@ -12,10 +17,10 @@ function renderTopRow() {
   return cells;
 }
 
-function renderRow(array, isPbe = false) {
+function renderRow(array, isPbe = false, isBonus = false) {
   return array.map((e, i) => {
     if (isPbe) return <PbeCell key={generate()}>{e}</PbeCell>;
-    return <Cell key={generate()}>{e}</Cell>;
+    return <Cell key={generate()}>{isBonus ? addSign(e) : e}</Cell>;
   });
 }
 
@@ -26,14 +31,14 @@ function renderGridCells(rolls, bonus) {
       <LeftRowCell key={generate()}>Roll</LeftRowCell>
       {renderRow(rolls)}
       <LeftRowCell key={generate()}>Bonus</LeftRowCell>
-      {renderRow(bonus)}
+      {renderRow(bonus, false, true)}
     </>
   );
 }
 
-const PbeRow = React.memo(({ pbe, isPbeOn }) => {
+const PbeRow = React.memo(({ pbe, isPbeOn, gridSize }) => {
   return (
-    <PbeRowWrapper isPbeOn={isPbeOn}>
+    <PbeRowWrapper isPbeOn={isPbeOn} gridSize={gridSize}>
       <PbeLeftRow>PBE</PbeLeftRow>
       {renderRow(pbe, true)}
     </PbeRowWrapper>
@@ -54,7 +59,7 @@ export default StatsGrid;
 
 const GridWrapper = styled.div`
   margin: 60px 0;
-  width: 55vw;
+  width: 95%;
 
   @media (max-width: 650px) {
     font-size: 13px;
@@ -95,10 +100,7 @@ const LeftRowCell = styled(Cell)`
   color: ${props => props.theme.text.primary};
   justify-content: left;
   font-weight: 600;
-  padding-left: 10px;
-  @media (max-width: 650px) {
-    padding-left: 2px;
-  }
+  padding-left: 10%;
 `;
 
 const TopRowCell = styled(Cell)`
@@ -108,14 +110,14 @@ const TopRowCell = styled(Cell)`
 `;
 
 const PbeRowWrapper = styled.div`
-  position: absolute;
-  display: grid;
+  display: ${props => (props.isPbeOn ? "grid" : "none")};
   grid-template-rows: 1fr;
   grid-template-columns: calc(20%) repeat(6, 1fr) calc(15%);
-  width: 55vw;
+  width: 100%;
   transform: translateY(-80px) scale(0.95);
   transition: transform 0.3s;
   margin-left: 1px;
+  margin-bottom: -57px;
 
   ${props =>
     props.isPbeOn &&
@@ -127,12 +129,11 @@ const PbeRowWrapper = styled.div`
 
 const PbeLeftRow = styled(LeftRowCell)`
   background-color: ${props => props.theme.colors.accent};
-  color: ${props => props.theme.text.constrast};
   padding-top: 20px;
 `;
 
 const PbeCell = styled(Cell)`
   background-color: ${props => props.theme.colors.secondary};
-  color: ${props => props.theme.text.constrast};
+  color: ${props => props.theme.text.primary};
   padding-top: 20px;
 `;
